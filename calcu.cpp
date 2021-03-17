@@ -1,17 +1,17 @@
 #include "std_lib_facilities.h"
 
-constexpr char number = '8';
-constexpr char quit = 'x';
+constexpr char number = '8'; //this is to show its number
+constexpr char quit = 'x'; //we can't use x as a variable; this is exit command
 constexpr char print = ';'; //we cant change the ; to an = since the = is already used under print later in the codefile!
 constexpr char result = '=';
 //constexpr char let = 'L';
 constexpr char sq = 'S';
 constexpr char power = 'P';
-constexpr char name = 'a';
-const string declkey = "#";
-const string squareroot = "sqrt";
-const string power_s = "pow"; //power_s is the string of the power
-const string quit_k = "exit"; //quit_k is the quit key
+constexpr char name = 'a'; 
+const string declkey = "#"; // declaration key
+const string squareroot = "sqrt";// squareroot function
+const string power_s = "pow"; //power_s is the string of the power. Power function
+const string quit_k = "exit"; //quit_k is the quit key 
 
 double expression();
 double term();
@@ -168,7 +168,7 @@ void clean_up_mess()
 	ts.ignore(print);
 }
 
-double declaration()
+double declaration() //decleration function
 {
 	Token t = ts.get();
 	if(t.kind != name) error("variable name expected");
@@ -182,36 +182,29 @@ double declaration()
 	return d;
 }
 
-double square()
+double square() //squareroot function
 {
 	
 	double d = expression();
 	if (d<0) 
-		error ("Entered number is negative!");
+		error ("Entered number is negative!"); //catches neegative square root
 	return sqrt(d);	
 	
 }
 
-double powerr()
+double powerr() // power function
 {
 	Token t = ts.get();
-	if (t.kind != '(') error (" ( is expected! ");
+	if (t.kind != '(') error (" ( is expected! "); // used to make sure there is an opening bracket
 	double x = expression();
 	Token t1 = ts.get();
-	if (t1.kind != ',') error (" , is expected! ");
-	double i = narrow_cast<int>(expression());
-	//if (i != int ) error (" i needs to be an integer!");
+	if (t1.kind != ',') error (" , is expected! ");// used to make sure there is a comma between both numbers
+	double i = narrow_cast<int>(expression()); // makes second input an integer not a double
 	Token t2 = ts.get();
-	if (t2.kind != ')') error (" ) is expected! ");
+	if (t2.kind != ')') error (" ) is expected! ");// used to make sure there is a closing bracket
 	return pow(x,i);
 }
-/*
-				int i1 = narrow_cast<int>(left);
-				int i2 = narrow_cast<int>(primary());
-				if (i2 == 0) error("Zero divider in %");
-				left = i1 % i2;
-				t = ts.get();
-				break */
+
 
 double statement()
 {
@@ -248,8 +241,8 @@ void calculate()
 
 int main()
 try {
-	cout << "Welcome to our simple Calculator. \nPlease enter expressions using floating-point numbers.\nYou can use any of the following operators! (,),%,/,*,-,+,=, sq() . \nYou can print your calculation by entering a  ;.\nYou can also exit this calculator by entering an  x.\n" <<endl;
-	define_name("k", 1000);
+	cout << "Welcome to our simple Calculator. \nPlease enter expressions using floating-point numbers.\nYou can use any of the following operators! (,),%,/,*,-,+,=, sqrt(num), pow(num,num) . \nYou can print your calculation by entering a  ;.\nYou can also exit this calculator by entering an x or the word exit.\nPlease dont use x as an assignemt operator as its already used to quit the calculator. \n" <<endl; // welcome message
+	define_name("k", 1000); //predefined k set to one-thousand
 	define_name("pi", 3.1415926535);
 
 	calculate();	
